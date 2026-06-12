@@ -1,0 +1,39 @@
+name: braille_reader
+description: BLE-клиент для тактильного устройства BrailleReader.
+publish_to: 'none'
+version: 2.0.0+1
+
+environment:
+  # speech_to_text 7.x требует Dart 3.3+
+  sdk: ">=3.3.0 <4.0.0"
+  flutter: ">=3.19.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # BLE — самый поддерживаемый сейчас пакет, активная разработка.
+  flutter_blue_plus: ^1.32.12
+
+  # Голосовой ввод. ВАЖНО: 7.x использует новый Flutter Plugin API
+  # (V2 embedding). Старая 6.x ссылается на удалённый класс Registrar
+  # и не компилируется на свежем Flutter SDK.
+  speech_to_text: ^7.3.0
+
+  # Озвучка статусов для слепого пользователя.
+  flutter_tts: ^4.2.0
+
+  # Тактильная обратная связь.
+  vibration: ^2.0.0
+
+  # Запросы разрешений: BLUETOOTH_*, MICROPHONE, LOCATION (для скана BLE).
+  permission_handler: ^11.3.1
+
+  # Сохранение MAC последнего устройства.
+  shared_preferences: ^2.2.3
+
+dev_dependencies:
+  flutter_lints: ^3.0.2
+
+flutter:
+  uses-material-design: true

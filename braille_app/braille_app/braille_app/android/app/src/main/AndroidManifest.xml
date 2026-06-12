@@ -1,0 +1,75 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- ============================================================ -->
+    <!--  BLUETOOTH                                                    -->
+    <!-- ============================================================ -->
+    <!-- Android < 12: для скана BLE НЕ обходится без location.        -->
+    <uses-permission android:name="android.permission.BLUETOOTH"
+                     android:maxSdkVersion="30" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"
+                     android:maxSdkVersion="30" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"
+                     android:maxSdkVersion="30" />
+
+    <!-- Android 12+ (API 31+): новая модель разрешений.               -->
+    <!-- neverForLocation говорит системе что мы не используем BLE для -->
+    <!-- определения местоположения, и тогда location-разрешение       -->
+    <!-- запрашивать не надо.                                          -->
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN"
+                     android:usesPermissionFlags="neverForLocation"
+                     tools:targetApi="s" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+
+    <!-- ============================================================ -->
+    <!--  МИКРОФОН (голосовой ввод)                                    -->
+    <!-- ============================================================ -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- ============================================================ -->
+    <!--  ВИБРАЦИЯ                                                     -->
+    <!-- ============================================================ -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <!-- Требуется фича Bluetooth LE — устройства без BLE не увидят    -->
+    <!-- приложение в Play Store.                                      -->
+    <uses-feature android:name="android.hardware.bluetooth_le"
+                  android:required="true" />
+
+    <application
+        android:label="BrailleReader"
+        android:name="${applicationName}"
+        android:icon="@mipmap/ic_launcher">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:taskAffinity=""
+            android:theme="@style/LaunchTheme"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:hardwareAccelerated="true"
+            android:windowSoftInputMode="adjustResize">
+
+            <meta-data
+                android:name="io.flutter.embedding.android.NormalTheme"
+                android:resource="@style/NormalTheme" />
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="flutterEmbedding"
+            android:value="2" />
+    </application>
+
+    <queries>
+        <intent>
+            <action android:name="android.speech.RecognitionService" />
+        </intent>
+    </queries>
+</manifest>
